@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".activities.HomeActivity">
+
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="@style/ToolBarStyle"
+                    app:layout_scrollFlags="scroll|enterAlways">
+
+                </android.support.v7.widget.Toolbar>
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/page_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:color/white"
+                    android:textSize="17sp"
+                    app:tabTextColor="@color/colorAccentDark"
+                    app:tabSelectedTextColor="@color/colorAccentDark"
+                    app:tabIndicatorColor="@color/colorAccentDark"
+                    app:tabBackground="@drawable/default_selector"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabMode="scrollable"
+                    app:theme="@style/AppTheme"/>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        </android.support.design.widget.CoordinatorLayout>
+
+        <ListView
+            android:id="@+id/drawer_content"
+            android:layout_width="220dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="left|start"
+            android:background="#FAFAFA"
+            android:divider="@null"
+            android:listSelector="?android:attr/selectableItemBackground" />
+
+    </android.support.v4.widget.DrawerLayout>
+
+</RelativeLayout>

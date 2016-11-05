@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default Theme -->
+    <color name="colorPrimary">#FFF</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorPrimaryLight">#FFF</color>
+    <color name="colorAccent">#E0E0E0</color>
+    <color name="colorAccentLight">#EEEEEE</color>
+    <color name="colorAccentDark">#BDBDBD</color>
+</resources>
