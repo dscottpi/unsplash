@@ -13,8 +13,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="45dp"
-            android:src="@drawable/profile" />
+            android:layout_marginTop="45dp" />
 
         <TextView
             android:id="@+id/name"
@@ -24,7 +23,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:layout_centerHorizontal="true"
-            android:text="Dan Scott"
+            android:text="Login coming soon!"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
@@ -37,8 +36,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="15dp"
             android:textColor="@color/colorAccentDark"
-            android:textSize="12sp"
-            android:text="See Profile"/>
+            android:textSize="12sp" />
 
     </RelativeLayout>
 

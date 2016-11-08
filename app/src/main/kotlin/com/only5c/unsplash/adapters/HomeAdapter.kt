@@ -4,10 +4,11 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import com.only5c.unsplash.activities.BaseActivity
+import com.only5c.unsplash.controllers.CollectionsController
 import com.only5c.unsplash.controllers.home.HomeImageListController
 import com.only5c.unsplash.controllers.home.NewImageListController
 
-class HomeAdapter(val activity: BaseActivity, val fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class HomeAdapter(val activity: BaseActivity, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     private val TITLES = arrayOf("home", "new", "collections")
 
     override fun getItem(position: Int): Fragment {
@@ -22,6 +23,10 @@ class HomeAdapter(val activity: BaseActivity, val fm: FragmentManager) : Fragmen
                 val controller = NewImageListController()
                 controller.api = activity.api
                 return controller
+            }
+
+            2 -> {
+                return CollectionsController()
             }
         }
 

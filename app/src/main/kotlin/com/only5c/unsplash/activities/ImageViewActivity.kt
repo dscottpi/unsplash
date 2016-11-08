@@ -19,6 +19,7 @@ class ImageViewActivity : BaseActivity() {
         controllers.add(ImageViewController(photoId, this, view!!))
         toolbar!!.backgroundDrawable = getDrawable(R.drawable.top_gradient)
         toolbar!!.setTitleTextColor(getColor(android.R.color.white))
+        toolbar!!.setSubtitleTextColor(getColor(android.R.color.white))
     }
 
     companion object {

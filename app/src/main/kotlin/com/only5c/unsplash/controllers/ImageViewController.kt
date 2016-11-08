@@ -51,21 +51,22 @@ class ImageViewController(val photoId: String, activity: BaseActivity, view: Vie
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem) {
-        when (menuItem.itemId) {
-            android.R.id.home -> activity.finish()
-        }
+        when (menuItem.itemId) { android.R.id.home -> activity.finish() }
     }
 
     override fun onResponse(call: Call<Photo>?, response: Response<Photo>?) {
-        photo = response!!.body()
+        photo = response?.body() ?: return
 
-        if (photo?.height!! > photo?.width!!) {
-            val params = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT)
-            view.image.layoutParams = params
+        photo?.let {
+            if (photo?.height!! > photo?.width!!) {
+                val params = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT)
+                view.image.layoutParams = params
+            }
         }
 
         Picasso.with(activity).load(photo?.image?.regular).into(view.image)
         view.toolbar.title = photo?.user?.name
+        view.toolbar.subtitle = "${photo?.likes} likes"
     }
 
     override fun onFailure(call: Call<Photo>?, t: Throwable?) {

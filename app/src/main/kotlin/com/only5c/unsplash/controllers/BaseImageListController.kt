@@ -42,6 +42,11 @@ abstract class BaseImageListController() : Fragment(), Callback<List<Photo>> {
 
         controller!!.swipe_refresh.onRefresh { loadImages() }
 
+        if (adapter?.data!!.size > 1) {
+            context.toast(adapter!!.data.size.toString())
+            updateUi()
+        }
+
         loadImages()
         return controller
     }

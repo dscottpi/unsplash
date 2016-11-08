@@ -2,7 +2,6 @@ package com.only5c.unsplash.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
@@ -13,13 +12,10 @@ import android.widget.TextView
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks
 import com.github.ksoichiro.android.observablescrollview.ScrollState
 import com.only5c.unsplash.R
-import com.only5c.unsplash.adapters.DrawerAdapter
 import com.only5c.unsplash.api.UnsplashApi
 import com.only5c.unsplash.controllers.BaseController
 import com.only5c.unsplash.extensions.createTypeface
-import com.only5c.unsplash.models.DrawerItem
 import kotlinx.android.synthetic.main.activity_home.*
-import org.jetbrains.anko.onItemClick
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
@@ -114,6 +110,7 @@ abstract class BaseActivity : AppCompatActivity(), ObservableScrollViewCallbacks
         api = retrofit.create(UnsplashApi::class.java)
     }
 
+    /*
     fun initDrawerLayout(data: ArrayList<DrawerItem>) {
         val adapter = DrawerAdapter(this)
         adapter.data = data
@@ -122,7 +119,7 @@ abstract class BaseActivity : AppCompatActivity(), ObservableScrollViewCallbacks
             controllers.forEach { it.drawerItemSelected(position) }
         }
 
-        drawer_layout.setDrawerListener(getDrawerToggle())
+        //drawer_layout.setDrawerListener(getDrawerToggle())
     }
 
     fun getDrawerToggle() : ActionBarDrawerToggle {
@@ -153,7 +150,7 @@ abstract class BaseActivity : AppCompatActivity(), ObservableScrollViewCallbacks
         drawerToggle.isDrawerIndicatorEnabled = true
 
         return drawerToggle
-    }
+    }*/
 
     override fun onScrollChanged(scrollY: Int, firstScroll: Boolean, dragging: Boolean) {
         controllers.forEach { it.onScrollChanged(scrollY, firstScroll, dragging) }
