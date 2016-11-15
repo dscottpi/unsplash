@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.only5c.unsplash.R
+import com.only5c.unsplash.activities.BaseActivity
 import com.only5c.unsplash.adapters.ImageListAdapter
 import com.only5c.unsplash.api.UnsplashApi
 import com.only5c.unsplash.extensions.inflate
@@ -28,6 +29,9 @@ abstract class BaseImageListController() : Fragment(), Callback<List<Photo>> {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         controller = context.inflate(R.layout.image_list)
 
+        val base = activity as BaseActivity
+        api = base.api
+
         val itemAnimator = DefaultItemAnimator()
         itemAnimator.addDuration = 1000
         itemAnimator.removeDuration = 1000
@@ -38,7 +42,6 @@ abstract class BaseImageListController() : Fragment(), Callback<List<Photo>> {
 
         adapter = ImageListAdapter(activity as AppCompatActivity)
         controller!!.images.adapter = adapter
-        //controller!!.images.setScrollViewCallbacks(activity as ObservableScrollViewCallbacks)
 
         controller!!.swipe_refresh.onRefresh { loadImages() }
 

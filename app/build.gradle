@@ -1,12 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "24.0.2"
     defaultConfig {
-        applicationId "com.only5c.ansplash"
+        applicationId "com.only5c.aperture"
         minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
@@ -51,14 +52,18 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
-    /* FABRIC
     compile('com.crashlytics.sdk.android:crashlytics:2.6.2@aar') {
         transitive = true;
     }
     compile('com.crashlytics.sdk.android:answers:1.3.9@aar') {
         transitive = true;
-    }*/
+    }
 
     // GSON
     compile 'com.google.code.gson:gson:2.7'
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://maven.fabric.io/public' }
 }

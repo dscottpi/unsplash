@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Andsplash</string>
+    <string name="app_name">Aperture</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_closed">Drawer Closed</string>
     <string name="search">Search</string>

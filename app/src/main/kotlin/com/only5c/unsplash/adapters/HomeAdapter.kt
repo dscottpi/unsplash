@@ -15,13 +15,11 @@ class HomeAdapter(val activity: BaseActivity, fm: FragmentManager) : FragmentSta
         when (position) {
             0 -> {
                 val controller = HomeImageListController()
-                controller.api = activity.api
                 return controller
             }
 
             1 -> {
                 val controller = NewImageListController()
-                controller.api = activity.api
                 return controller
             }
 
@@ -31,7 +29,6 @@ class HomeAdapter(val activity: BaseActivity, fm: FragmentManager) : FragmentSta
         }
 
         val controller = HomeImageListController()
-        controller.api = activity.api
         return controller
     }
 

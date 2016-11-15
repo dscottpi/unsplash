@@ -9,12 +9,15 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.crashlytics.android.Crashlytics
+import com.crashlytics.android.answers.Answers
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks
 import com.github.ksoichiro.android.observablescrollview.ScrollState
 import com.only5c.unsplash.R
 import com.only5c.unsplash.api.UnsplashApi
 import com.only5c.unsplash.controllers.BaseController
 import com.only5c.unsplash.extensions.createTypeface
+import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_home.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -39,8 +42,8 @@ abstract class BaseActivity : AppCompatActivity(), ObservableScrollViewCallbacks
         setContentView(layoutResource!!)
         setTheme(theme!!)
         view = findViewById(android.R.id.content)
-        //Fabric.with(this, Crashlytics())
-        //Fabric.with(this, Answers())
+        Fabric.with(this, Crashlytics())
+        Fabric.with(this, Answers())
         initToolbar()
         initController()
         initApi()
@@ -109,48 +112,6 @@ abstract class BaseActivity : AppCompatActivity(), ObservableScrollViewCallbacks
                 .build()
         api = retrofit.create(UnsplashApi::class.java)
     }
-
-    /*
-    fun initDrawerLayout(data: ArrayList<DrawerItem>) {
-        val adapter = DrawerAdapter(this)
-        adapter.data = data
-        drawer_content.adapter = adapter
-        drawer_content.onItemClick { adapterView, view, position, id ->
-            controllers.forEach { it.drawerItemSelected(position) }
-        }
-
-        //drawer_layout.setDrawerListener(getDrawerToggle())
-    }
-
-    fun getDrawerToggle() : ActionBarDrawerToggle {
-        val drawerToggle = object : ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.drawer_open, R.string.drawer_closed) {
-
-            override fun onDrawerOpened(drawerView: View?) {
-                super.onDrawerOpened(drawerView)
-                drawer_layout.fitsSystemWindows = true
-                invalidateOptionsMenu()
-                syncState()
-                super.onDrawerSlide(drawerView, 0f)
-            }
-
-            override fun onDrawerClosed(drawerView: View?) {
-                super.onDrawerClosed(drawerView)
-                drawer_layout.fitsSystemWindows = false
-                invalidateOptionsMenu()
-                syncState()
-            }
-
-            override fun onDrawerSlide(drawerView: View?, slideOffset: Float) {
-                super.onDrawerSlide(drawerView, 0f)
-            }
-        }
-
-        drawerToggle.syncState()
-        drawerToggle.isDrawerIndicatorEnabled = true
-
-        return drawerToggle
-    }*/
 
     override fun onScrollChanged(scrollY: Int, firstScroll: Boolean, dragging: Boolean) {
         controllers.forEach { it.onScrollChanged(scrollY, firstScroll, dragging) }

@@ -46,7 +46,7 @@ class ImageListAdapter(val activity: AppCompatActivity) : RecyclerView.Adapter<I
         holder.avatar.setImageBitmap(null)
 
         Picasso.with(activity).load(photo.image?.small).into(holder.image)
-        Picasso.with(activity).load(photo.user?.profileImage?.small).into(holder.avatar)
+        Picasso.with(activity).load(photo.user?.profileImage?.medium).into(holder.avatar)
 
         holder.username.typeface = courier
         holder.likes.typeface = courier
