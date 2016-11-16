@@ -29,8 +29,7 @@ abstract class BaseImageListController() : Fragment(), Callback<List<Photo>> {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         controller = context.inflate(R.layout.image_list)
 
-        val base = activity as BaseActivity
-        api = base.api
+        api = (activity as BaseActivity).api
 
         val itemAnimator = DefaultItemAnimator()
         itemAnimator.addDuration = 1000
