@@ -42,9 +42,10 @@ class ImageListAdapter(val activity: AppCompatActivity) : RecyclerView.Adapter<I
 
     override fun onBindViewHolder(holder: ImageListAdapter.ViewHolder?, position: Int) {
         val photo = data[position]
-        holder!!.image.setImageBitmap(null)
-        holder.avatar.setImageBitmap(null)
+        holder!!.avatar.setImageBitmap(null)
+        holder.image.setImageBitmap(null)
 
+        photo.height?.let { holder.image.minimumHeight = it }
         Picasso.with(activity).load(photo.image?.small).into(holder.image)
         Picasso.with(activity).load(photo.user?.profileImage?.medium).into(holder.avatar)
 

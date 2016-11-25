@@ -12,12 +12,12 @@ import retrofit2.http.Query
 
 interface UnsplashApi {
     @Headers("Authorization: Client-ID 5aaed5ddc13df4f6a3db0ae5d1db456a9e6a30984ec7bab43d9cf2c500a5fcd2")
-    @GET("/photos/curated?page=1&per_page=20")
-    fun getHome() : Call<List<Photo>>
+    @GET("/photos/curated?per_page=20")
+    fun getHome(@Query("page") pageNumber: Int) : Call<List<Photo>>
 
     @Headers("Authorization: Client-ID 5aaed5ddc13df4f6a3db0ae5d1db456a9e6a30984ec7bab43d9cf2c500a5fcd2")
     @GET("/photos?per_page=20")
-    fun getNew() : Call<List<Photo>>
+    fun getNew(@Query("page") pageNumber: Int) : Call<List<Photo>>
 
     @Headers("Authorization: Client-ID 5aaed5ddc13df4f6a3db0ae5d1db456a9e6a30984ec7bab43d9cf2c500a5fcd2")
     @GET("/users/{username}")
@@ -29,7 +29,7 @@ interface UnsplashApi {
 
     @Headers("Authorization: Client-ID 5aaed5ddc13df4f6a3db0ae5d1db456a9e6a30984ec7bab43d9cf2c500a5fcd2")
     @GET("/users/{username}/photos")
-    fun getUserPhotos(@Path("username") userName: String) : Call<List<Photo>>
+    fun getUserPhotos(@Path("username") userName: String, @Query("page") pageNumber: Int) : Call<List<Photo>>
 
     @Headers("Authorization: Client-ID 5aaed5ddc13df4f6a3db0ae5d1db456a9e6a30984ec7bab43d9cf2c500a5fcd2")
     @GET("/users/{username}/likes")

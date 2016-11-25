@@ -2,6 +2,7 @@ package com.only5c.unsplash.activities
 
 import android.content.Context
 import android.content.Intent
+import android.support.v4.content.ContextCompat
 import com.only5c.unsplash.PHOTO_ID_EXTRA
 import com.only5c.unsplash.R
 import com.only5c.unsplash.controllers.ImageViewController
@@ -18,8 +19,8 @@ class ImageViewActivity : BaseActivity() {
         val photoId = intent.getStringExtra(PHOTO_ID_EXTRA)
         controllers.add(ImageViewController(photoId, this, view!!))
         toolbar!!.backgroundDrawable = getDrawable(R.drawable.top_gradient)
-        toolbar!!.setTitleTextColor(getColor(android.R.color.white))
-        toolbar!!.setSubtitleTextColor(getColor(android.R.color.white))
+        toolbar!!.setTitleTextColor(ContextCompat.getColor(this, android.R.color.white))
+        toolbar!!.setSubtitleTextColor(ContextCompat.getColor(this, android.R.color.white))
     }
 
     companion object {

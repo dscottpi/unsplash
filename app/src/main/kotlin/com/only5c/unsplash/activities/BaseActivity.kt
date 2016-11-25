@@ -2,6 +2,7 @@ package com.only5c.unsplash.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
@@ -99,7 +100,7 @@ abstract class BaseActivity : AppCompatActivity(), ObservableScrollViewCallbacks
                 val tabViewChild = vgTab.getChildAt(i)
                 if (tabViewChild is TextView) {
                     tabViewChild.setTypeface(this.createTypeface("courier.ttf"))
-                    tabViewChild.setTextColor(getColor(android.R.color.black))
+                    tabViewChild.setTextColor(ContextCompat.getColor(this, android.R.color.black))
                 }
             }
         }

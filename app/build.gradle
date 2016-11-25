@@ -47,6 +47,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
+    compile 'com.facebook.fresco:fresco:0.14.1'
 
     // UTIL
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"

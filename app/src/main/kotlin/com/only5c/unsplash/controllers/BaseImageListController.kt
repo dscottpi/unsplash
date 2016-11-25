@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,11 +22,19 @@ import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 abstract class BaseImageListController() : Fragment(), Callback<List<Photo>> {
     var api: UnsplashApi? = null
     var adapter: ImageListAdapter? = null
     var controller: View? = null
+    var photos: ArrayList<Photo> = ArrayList()
+    private var loading = true
+    var pastVisiblesItems: Int = 0
+    var visibleItemCount: Int = 0
+    var totalItemCount: Int = 0
+    var pageNumber: Int = 1
+
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         controller = context.inflate(R.layout.image_list)
@@ -41,16 +51,40 @@ abstract class BaseImageListController() : Fragment(), Callback<List<Photo>> {
 
         adapter = ImageListAdapter(activity as AppCompatActivity)
         controller!!.images.adapter = adapter
+        controller!!.images.setItemViewCacheSize(20)
+        controller!!.images.setDrawingCacheEnabled(true);
+        controller!!.images.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
         controller!!.swipe_refresh.onRefresh { loadImages() }
 
         if (adapter?.data!!.size > 1) {
-            context.toast(adapter!!.data.size.toString())
             updateUi()
         }
 
         loadImages()
+        initPagination()
         return controller
+    }
+
+    fun initPagination() {
+        controller!!.images.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    visibleItemCount = controller!!.images.layoutManager.childCount
+                    totalItemCount = controller!!.images.layoutManager.itemCount
+                    pastVisiblesItems = (controller!!.images.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                    if (loading) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                            loading = false
+                            Log.v("...", "Last Item Wow !")
+                            pageNumber++
+                            loadImages()
+                        }
+                    }
+                }
+            }
+        })
     }
 
     fun updateUi() {
@@ -59,11 +93,19 @@ abstract class BaseImageListController() : Fragment(), Callback<List<Photo>> {
         controller!!.swipe_refresh.isRefreshing = false
     }
 
-    open fun loadImages() {}
+    open fun loadImages() {
+    }
 
     override fun onResponse(call: Call<List<Photo>>?, response: Response<List<Photo>>?) {
+        loading = true
         updateUi()
-        response?.body()?.let { adapter!!.data = it }
+        response?.body()?.let {
+            photos.addAll(it.filter {
+                val id = it.id
+                !photos.any { it.id == id }
+            })
+            adapter!!.data = photos
+        }
     }
 
     override fun onFailure(call: Call<List<Photo>>?, t: Throwable?) {

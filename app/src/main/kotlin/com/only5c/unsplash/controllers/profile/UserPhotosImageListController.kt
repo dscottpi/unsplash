@@ -6,7 +6,7 @@ class UserPhotosImageListController : BaseImageListController() {
     var userName: String? = null
 
     override fun loadImages() {
-        val call = api?.getUserPhotos(userName!!)
+        val call = api?.getUserPhotos(userName!!, pageNumber)
         call?.enqueue(this)
     }
 }

@@ -5,7 +5,7 @@ import com.only5c.unsplash.controllers.BaseImageListController
 class NewImageListController : BaseImageListController() {
     override fun loadImages() {
         api?.let {
-            val call = it.getNew()
+            val call = it.getNew(pageNumber)
             call.enqueue(this)
         }
     }
