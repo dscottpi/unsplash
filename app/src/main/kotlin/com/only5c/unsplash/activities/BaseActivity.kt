@@ -39,9 +39,9 @@ abstract class BaseActivity : AppCompatActivity(), ObservableScrollViewCallbacks
     var api: UnsplashApi? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(theme!!)
         super.onCreate(savedInstanceState)
         setContentView(layoutResource!!)
-        setTheme(theme!!)
         view = findViewById(android.R.id.content)
         Fabric.with(this, Crashlytics())
         Fabric.with(this, Answers())
@@ -58,6 +58,7 @@ abstract class BaseActivity : AppCompatActivity(), ObservableScrollViewCallbacks
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(menuResource!!, menu)
+        controllers.forEach { it.onMenuCreated(menu!!) }
         return true
     }
 

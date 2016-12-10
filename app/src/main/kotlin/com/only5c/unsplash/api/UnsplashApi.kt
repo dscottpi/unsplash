@@ -1,9 +1,7 @@
 package com.only5c.unsplash.api
 
-import com.only5c.unsplash.models.Photo
-import com.only5c.unsplash.models.PhotoSearch
-import com.only5c.unsplash.models.User
-import com.only5c.unsplash.models.UserSearch
+import com.only5c.unsplash.models.*
+import com.only5c.unsplash.models.Collection
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -33,13 +31,26 @@ interface UnsplashApi {
 
     @Headers("Authorization: Client-ID 5aaed5ddc13df4f6a3db0ae5d1db456a9e6a30984ec7bab43d9cf2c500a5fcd2")
     @GET("/users/{username}/likes")
-    fun getUserLikes(@Path("username") userName: String) : Call<List<Photo>>
+    fun getUserLikes(@Path("username") userName: String, @Query("page") pageNumber: Int) : Call<List<Photo>>
 
     @Headers("Authorization: Client-ID 5aaed5ddc13df4f6a3db0ae5d1db456a9e6a30984ec7bab43d9cf2c500a5fcd2")
     @GET("/search/photos")
-    fun getSearchPhotos(@Query("query") search: String) : Call<PhotoSearch>
+    fun getSearchPhotos(@Query("query") search: String, @Query("page") pageNumber: Int) : Call<PhotoSearch>
 
     @Headers("Authorization: Client-ID 5aaed5ddc13df4f6a3db0ae5d1db456a9e6a30984ec7bab43d9cf2c500a5fcd2")
     @GET("/search/users")
-    fun getSearchUsers(@Query("query") search: String) : Call<UserSearch>
+    fun getSearchUsers(@Query("query") search: String, @Query("page") pageNumber: Int) : Call<UserSearch>
+
+    @Headers("Authorization: Client-ID 5aaed5ddc13df4f6a3db0ae5d1db456a9e6a30984ec7bab43d9cf2c500a5fcd2")
+    @GET("/collections/featured")
+    fun getFeaturedCollections() : Call<List<Collection>>
+
+    @Headers("Authorization: Client-ID 5aaed5ddc13df4f6a3db0ae5d1db456a9e6a30984ec7bab43d9cf2c500a5fcd2")
+    @GET("/collections/{id}")
+    fun getCollection(@Path("id") collectionId: String) : Call<Collection>
+
+    @Headers("Authorization: Client-ID 5aaed5ddc13df4f6a3db0ae5d1db456a9e6a30984ec7bab43d9cf2c500a5fcd2")
+    @GET("/collections/{id}/photos?per_page=100")
+    fun getCollectionPhotos(@Path("id") collectionId: String, @Query("page") pageNumber: Int) : Call<List<Photo>>
+
 }

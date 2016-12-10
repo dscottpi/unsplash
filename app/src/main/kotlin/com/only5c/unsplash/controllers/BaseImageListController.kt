@@ -34,7 +34,7 @@ abstract class BaseImageListController() : Fragment(), Callback<List<Photo>> {
     var visibleItemCount: Int = 0
     var totalItemCount: Int = 0
     var pageNumber: Int = 1
-
+    open var caching: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         controller = context.inflate(R.layout.image_list)
@@ -61,7 +61,7 @@ abstract class BaseImageListController() : Fragment(), Callback<List<Photo>> {
             updateUi()
         }
 
-        loadImages()
+        if (caching) { loadImagesFromCache() } else { loadImages() }
         initPagination()
         return controller
     }
@@ -93,18 +93,20 @@ abstract class BaseImageListController() : Fragment(), Callback<List<Photo>> {
         controller!!.swipe_refresh.isRefreshing = false
     }
 
-    open fun loadImages() {
-    }
+    open fun loadImagesFromCache() {}
+    open fun loadImages() {}
+    open fun cachePhotos() {}
 
     override fun onResponse(call: Call<List<Photo>>?, response: Response<List<Photo>>?) {
         loading = true
         updateUi()
         response?.body()?.let {
-            photos.addAll(it.filter {
-                val id = it.id
-                !photos.any { it.id == id }
-            })
+                photos.addAll(it.filter {
+                    val id = it.id
+                    !photos.any { it.id == id }
+                })
             adapter!!.data = photos
+            if (caching && pageNumber == 1) { cachePhotos() }
         }
     }
 

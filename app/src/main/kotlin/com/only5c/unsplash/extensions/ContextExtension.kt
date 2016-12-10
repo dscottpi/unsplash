@@ -1,7 +1,9 @@
 package com.only5c.unsplash.extensions
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Typeface
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,4 +25,16 @@ fun Context.closeKeyboard(view: View) {
 
 fun Context.createTypeface(filePath: String) : Typeface {
     return Typeface.createFromAsset(this.assets, filePath)
+}
+
+fun Context.openTwitter() {
+    this.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/dscottpi")))
+}
+
+fun Context.openSupportEmail() {
+    val intent = Intent(android.content.Intent.ACTION_SEND)
+    intent.type = "plain/text"
+    intent.putExtra(android.content.Intent.EXTRA_EMAIL, arrayOf("onlyfivec@gmail.com"))
+    intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Aperture - Feedback")
+    this.startActivity(Intent.createChooser(intent, "Send email..."))
 }

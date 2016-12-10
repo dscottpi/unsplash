@@ -46,7 +46,11 @@ class ImageListAdapter(val activity: AppCompatActivity) : RecyclerView.Adapter<I
         holder.image.setImageBitmap(null)
 
         photo.height?.let { holder.image.minimumHeight = it }
-        Picasso.with(activity).load(photo.image?.small).into(holder.image)
+        Picasso.with(activity)
+                .load(photo.image?.small)
+                .tag(activity)
+                .into(holder.image)
+
         Picasso.with(activity).load(photo.user?.profileImage?.medium).into(holder.avatar)
 
         holder.username.typeface = courier

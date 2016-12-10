@@ -34,6 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:clickable="false"
                 android:background="@drawable/default_selector"
                 android:src="@drawable/ic_wallpaper" />
 
@@ -42,6 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:clickable="false"
                 android:background="@drawable/default_selector"
                 android:src="@drawable/ic_download_light"/>
 

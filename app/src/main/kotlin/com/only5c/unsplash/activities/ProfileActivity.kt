@@ -11,6 +11,7 @@ class ProfileActivity : BaseActivity() {
     override var toolbarTitle: Int? = R.string.blank
     override var toolbarPadding: Boolean? = false
     override var toolbarIcon: Int? = R.drawable.ic_back
+    override var menuResource: Int? = R.menu.menu_profile
 
     override fun initController() {
         val userName = intent.getStringExtra(USER_NAME_EXTRA)

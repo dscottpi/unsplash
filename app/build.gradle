@@ -10,13 +10,14 @@ android {
         applicationId "com.only5c.aperture"
         minSdkVersion 19
         targetSdkVersion 24
-        versionCode 2
+        versionCode 3
         versionName "0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -47,7 +48,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
-    compile 'com.facebook.fresco:fresco:0.14.1'
 
     // UTIL
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"

@@ -6,7 +6,7 @@ class UserLikesImageListController : BaseImageListController() {
     var userName: String? = null
 
     override fun loadImages() {
-        val call = api?.getUserLikes(userName!!)
+        val call = api?.getUserLikes(userName!!, pageNumber)
         call?.enqueue(this)
     }
 }

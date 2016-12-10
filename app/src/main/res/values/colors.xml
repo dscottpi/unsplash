@@ -8,4 +8,5 @@
     <color name="colorAccentLight">#EEEEEE</color>
     <color name="colorAccentDark">#BDBDBD</color>
     <color name="black_opaque">#AA000000</color>
+    <color name="collection_overlay">#80212121</color>
 </resources>

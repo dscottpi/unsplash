@@ -3,6 +3,7 @@ package com.only5c.unsplash.controllers.home
 import android.view.MenuItem
 import android.view.View
 import com.only5c.unsplash.R
+import com.only5c.unsplash.activities.AboutActivity
 import com.only5c.unsplash.activities.BaseActivity
 import com.only5c.unsplash.activities.SearchActivity
 import com.only5c.unsplash.adapters.HomeAdapter
@@ -19,6 +20,7 @@ class HomeController(activity: BaseActivity, view: View) : BaseController(activi
     override fun onMenuItemSelected(menuItem: MenuItem) {
         when (menuItem.itemId) {
             R.id.search -> SearchActivity.launch(activity)
+            R.id.about -> AboutActivity.launch(activity)
         }
     }
 

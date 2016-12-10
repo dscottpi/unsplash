@@ -1,6 +1,7 @@
 package com.only5c.unsplash.controllers
 
 import android.content.Intent
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.only5c.unsplash.activities.BaseActivity
@@ -14,4 +15,5 @@ abstract class BaseController(val activity: BaseActivity, val view: View) {
     open fun drawerItemSelected(position: Int) {}
     open fun filterSearch(text: String) {}
     open fun onScrollChanged(scrollY: Int, firstScroll: Boolean, dragging: Boolean) {}
+    open fun onMenuCreated(menu: Menu) {}
 }
