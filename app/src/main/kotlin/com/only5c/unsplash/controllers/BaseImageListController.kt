@@ -1,12 +1,12 @@
 package com.only5c.unsplash.controllers
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +18,6 @@ import com.only5c.unsplash.extensions.inflate
 import com.only5c.unsplash.models.Photo
 import kotlinx.android.synthetic.main.image_list.view.*
 import org.jetbrains.anko.support.v4.onRefresh
-import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,11 +34,13 @@ abstract class BaseImageListController() : Fragment(), Callback<List<Photo>> {
     var totalItemCount: Int = 0
     var pageNumber: Int = 1
     open var caching: Boolean = false
+    var activity: BaseActivity? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         controller = context.inflate(R.layout.image_list)
 
-        api = (activity as BaseActivity).api
+        activity = (getActivity() as BaseActivity)
+        api = activity?.api
 
         val itemAnimator = DefaultItemAnimator()
         itemAnimator.addDuration = 1000
@@ -55,7 +56,12 @@ abstract class BaseImageListController() : Fragment(), Callback<List<Photo>> {
         controller!!.images.setDrawingCacheEnabled(true);
         controller!!.images.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
-        controller!!.swipe_refresh.onRefresh { loadImages() }
+        controller!!.swipe_refresh.onRefresh {
+            photos.clear()
+            clearCache()
+            pageNumber = 1
+            loadImages()
+        }
 
         if (adapter?.data!!.size > 1) {
             updateUi()
@@ -77,7 +83,6 @@ abstract class BaseImageListController() : Fragment(), Callback<List<Photo>> {
                     if (loading) {
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false
-                            Log.v("...", "Last Item Wow !")
                             pageNumber++
                             loadImages()
                         }
@@ -96,10 +101,12 @@ abstract class BaseImageListController() : Fragment(), Callback<List<Photo>> {
     open fun loadImagesFromCache() {}
     open fun loadImages() {}
     open fun cachePhotos() {}
+    open fun clearCache() {}
 
     override fun onResponse(call: Call<List<Photo>>?, response: Response<List<Photo>>?) {
         loading = true
         updateUi()
+        println(response?.headers())
         response?.body()?.let {
                 photos.addAll(it.filter {
                     val id = it.id
@@ -111,6 +118,13 @@ abstract class BaseImageListController() : Fragment(), Callback<List<Photo>> {
     }
 
     override fun onFailure(call: Call<List<Photo>>?, t: Throwable?) {
-        context.toast("Failed to get images")
+        Snackbar.make(controller!!, "Failed to get Images", Snackbar.LENGTH_LONG)
+                .setAction("RETRY", object : View.OnClickListener {
+                    override fun onClick(p0: View?) {
+                        loadImages()
+                    }
+                }).show()
+
+        controller!!.swipe_refresh.isRefreshing = false
     }
 }

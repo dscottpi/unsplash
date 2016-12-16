@@ -3,13 +3,11 @@ package com.only5c.unsplash.controllers.collections
 import android.support.v7.widget.GridLayoutManager
 import android.view.MenuItem
 import android.view.View
-import com.only5c.unsplash.COLLECTION_COVER_EXTRA
-import com.only5c.unsplash.COLLECTION_ID_EXTRA
-import com.only5c.unsplash.COLLECTION_SIZE_EXTRA
-import com.only5c.unsplash.COLLECTION_TITLE_EXTRA
+import com.only5c.unsplash.*
 import com.only5c.unsplash.activities.BaseActivity
 import com.only5c.unsplash.adapters.CollectionAdapter
 import com.only5c.unsplash.controllers.BaseController
+import com.only5c.unsplash.extensions.createTypeface
 import com.only5c.unsplash.models.Photo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_collection.view.*
@@ -38,6 +36,10 @@ class CollectionController(activity: BaseActivity, view: View) : BaseController(
         view.collection_photos.adapter = adapter
 
         view.collection_title.text = activity.intent.getStringExtra(COLLECTION_TITLE_EXTRA)
+
+        val author = activity.intent.getStringExtra(COLLECTION_AUTHOR)
+        view.subtitle.typeface = activity.createTypeface("courier.ttf")
+        view.subtitle.text = "by $author"
         loadCollections()
     }
 

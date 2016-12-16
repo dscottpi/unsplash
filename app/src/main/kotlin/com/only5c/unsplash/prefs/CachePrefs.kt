@@ -53,3 +53,8 @@ fun updateHomePhotos(context: Context, photos: ArrayList<Photo>) {
 fun updateNewPhotos(context: Context, photos: ArrayList<Photo>) {
     setPreferenceJson(context, PHOTOS_CACHE, PHOTOS_CACHE_NEW, photos)
 }
+
+fun clearPhotosCache(context: Context, key: String) {
+    val photos = ArrayList<Photo>()
+    setPreferenceJson(context, PHOTOS_CACHE, key, photos)
+}

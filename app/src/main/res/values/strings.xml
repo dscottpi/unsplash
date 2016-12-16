@@ -11,5 +11,6 @@
     <string name="about_location">Ireland</string>
     <string name="about_bio">Hey. I\'m a student and android dev with a thing for minimalistic design.\n\nI hope you\'re enjoying the app. If you have any problems reach out to me on Twitter or send me an email.</string>
     <string name="blank"></string>
+    <string name="legal">Legal stuff</string>
 
 </resources>

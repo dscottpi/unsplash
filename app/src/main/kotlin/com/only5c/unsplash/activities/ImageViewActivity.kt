@@ -18,7 +18,7 @@ class ImageViewActivity : BaseActivity() {
     override fun initController() {
         val photoId = intent.getStringExtra(PHOTO_ID_EXTRA)
         controllers.add(ImageViewController(photoId, this, view!!))
-        toolbar!!.backgroundDrawable = getDrawable(R.drawable.top_gradient)
+        toolbar!!.backgroundDrawable = ContextCompat.getDrawable(this, R.drawable.top_gradient)
         toolbar!!.setTitleTextColor(ContextCompat.getColor(this, android.R.color.white))
         toolbar!!.setSubtitleTextColor(ContextCompat.getColor(this, android.R.color.white))
     }

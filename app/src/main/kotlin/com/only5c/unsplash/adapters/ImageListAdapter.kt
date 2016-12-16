@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.only5c.unsplash.R
 import com.only5c.unsplash.activities.ImageViewActivity
 import com.only5c.unsplash.activities.ProfileActivity
@@ -15,6 +16,9 @@ import com.only5c.unsplash.extensions.canWriteExternalStorage
 import com.only5c.unsplash.extensions.createTypeface
 import com.only5c.unsplash.extensions.inflate
 import com.only5c.unsplash.helpers.downloadPhoto
+import com.only5c.unsplash.helpers.logDownloadButtonClicked
+import com.only5c.unsplash.helpers.logImageOpened
+import com.only5c.unsplash.helpers.logLikeButtonClicked
 import com.only5c.unsplash.models.Photo
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
@@ -45,10 +49,10 @@ class ImageListAdapter(val activity: AppCompatActivity) : RecyclerView.Adapter<I
         holder!!.avatar.setImageBitmap(null)
         holder.image.setImageBitmap(null)
 
-        photo.height?.let { holder.image.minimumHeight = it }
-        Picasso.with(activity)
-                .load(photo.image?.small)
-                .tag(activity)
+        Glide.with(activity)
+                .load(photo.image?.regular)
+                .crossFade()
+                .override(photo.getNormalWidth(), photo.getNormalHeight())
                 .into(holder.image)
 
         Picasso.with(activity).load(photo.user?.profileImage?.medium).into(holder.avatar)
@@ -59,12 +63,20 @@ class ImageListAdapter(val activity: AppCompatActivity) : RecyclerView.Adapter<I
         holder.username.text = photo.user?.name
         holder.likes.text = "${photo.likes} likes"
 
-        holder.image.onClick { ImageViewActivity.launch(activity, photo.id!!) }
+        holder.image.onClick {
+            logImageOpened()
+            ImageViewActivity.launch(activity, photo.id!!)
+        }
 
-        holder.likeButton.onClick { holder.likeButton.setImageResource(R.drawable.ic_like) }
+        holder.likeButton.onClick {
+            logLikeButtonClicked()
+            holder.likeButton.setImageResource(R.drawable.ic_like)
+        }
+
         holder.avatar.onClick { ProfileActivity.launch(activity, photo.user!!.username!!) }
         holder.username.onClick { ProfileActivity.launch(activity, photo.user!!.username!!) }
         holder.download.onClick {
+            logDownloadButtonClicked()
             activity.canWriteExternalStorage {
                 downloadPhoto(activity, photo)
             }
@@ -74,6 +86,10 @@ class ImageListAdapter(val activity: AppCompatActivity) : RecyclerView.Adapter<I
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = activity.inflate(R.layout.image_list_item)
         return ViewHolder(view)
+    }
+
+    override fun onViewRecycled(holder: ViewHolder?) {
+        Glide.clear(holder!!.image)
     }
 
     override fun getItemCount(): Int = data.size

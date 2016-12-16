@@ -16,15 +16,11 @@ class ProfileAdapter(val profileView: View, val userName: String, val activity: 
         when (position) {
             0 -> {
                 val controller = UserPhotosImageListController()
-                controller.userName = userName
-                controller.api = activity.api
                 return controller
             }
 
             1 -> {
                 val controller = UserLikesImageListController()
-                controller.userName = userName
-                controller.api = activity.api
                 return controller
             }
         }

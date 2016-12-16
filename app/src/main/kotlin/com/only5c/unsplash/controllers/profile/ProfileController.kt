@@ -11,6 +11,7 @@ import com.only5c.unsplash.activities.BaseActivity
 import com.only5c.unsplash.adapters.ProfileAdapter
 import com.only5c.unsplash.controllers.BaseController
 import com.only5c.unsplash.extensions.createTypeface
+import com.only5c.unsplash.helpers.logProfileViewed
 import com.only5c.unsplash.models.User
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile.view.*
@@ -29,13 +30,8 @@ class ProfileController(val userName: String, activity: BaseActivity, view: View
     override fun initView() {
         view.user_location.typeface = courier
         view.user_bio.typeface = courier
-        view.user_name.translationY = 10f
-        view.user_name.alpha = 0f
-        view.user_bio.translationY = 10f
-        view.user_bio.alpha = 0f
-        view.user_location.translationY = 10f
-        view.user_location.alpha = 0f
         getUser(userName)
+        logProfileViewed()
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem) {

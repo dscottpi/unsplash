@@ -8,6 +8,8 @@ import com.only5c.unsplash.activities.BaseActivity
 import com.only5c.unsplash.extensions.canSetWallpaper
 import com.only5c.unsplash.extensions.canWriteExternalStorage
 import com.only5c.unsplash.helpers.downloadPhoto
+import com.only5c.unsplash.helpers.logDownloadButtonClicked
+import com.only5c.unsplash.helpers.logWallpaperClicked
 import com.only5c.unsplash.models.Photo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_image_view.view.*
@@ -30,19 +32,19 @@ class ImageViewController(val photoId: String, activity: BaseActivity, view: Vie
 
     private fun initBottomButtons() {
         view.download.onClick {
+            logDownloadButtonClicked()
             photo?.let {
                 activity.canWriteExternalStorage { downloadPhoto(activity, it) }
             }
         }
 
         view.wallpaper.onClick {
+            logWallpaperClicked()
             activity.canSetWallpaper {
                 doAsync {
                     val wpm = WallpaperManager.getInstance(activity)
-                    println(photo?.downloads?.downloadLocation)
-                    println(photo?.downloads?.downloadUrl)
-
                     view.image.buildDrawingCache()
+
                     val bitmap = view.image.drawingCache
                     wpm.setBitmap(bitmap)
 

@@ -8,6 +8,8 @@ import com.only5c.unsplash.adapters.SearchAdapter
 import com.only5c.unsplash.controllers.BaseController
 import com.only5c.unsplash.extensions.closeKeyboard
 import com.only5c.unsplash.extensions.openKeyboard
+import com.only5c.unsplash.helpers.logSearch
+import com.only5c.unsplash.helpers.logSearchOpened
 import kotlinx.android.synthetic.main.activity_search.view.*
 import kotlinx.android.synthetic.main.search_toolbar.view.*
 
@@ -24,6 +26,7 @@ class SearchController(activity: BaseActivity, view: View) : BaseController(acti
                     val users = adapter!!.instantiateItem(view.search_pager, 1) as SearchUserListController
                     photos.search = textView.text.toString()
                     users.search = textView.text.toString()
+                    logSearch(textView.text.toString())
                     activity.closeKeyboard(view)
                     true
                 } else -> true
@@ -31,6 +34,7 @@ class SearchController(activity: BaseActivity, view: View) : BaseController(acti
         }
         activity.openKeyboard(view.search)
         view.search.requestFocus()
+        logSearchOpened()
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem) {

@@ -49,6 +49,7 @@ class CollectionsAdapter(val context: Context) : RecyclerView.Adapter<Collection
         intent.putExtra(COLLECTION_COVER_EXTRA, collection.coverPhoto?.image?.regular)
         intent.putExtra(COLLECTION_TITLE_EXTRA, collection.title)
         intent.putExtra(COLLECTION_SIZE_EXTRA, collection.totalPhotos)
+        intent.putExtra(COLLECTION_AUTHOR, collection.user?.name)
         context.startActivity(intent)
     }
 

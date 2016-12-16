@@ -31,7 +31,7 @@
                     android:layout_height="100dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="50dp"
-                    android:src="@color/colorAccent"/>
+                    android:src="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/user_name"
@@ -40,8 +40,10 @@
                     android:layout_below="@+id/avatar"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
+                    android:alpha="0"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:translationY="10dp" />
 
                 <TextView
                     android:id="@+id/user_location"
@@ -49,8 +51,10 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/user_name"
                     android:layout_centerHorizontal="true"
+                    android:alpha="0"
                     android:textAlignment="center"
-                    android:textColor="@color/colorAccentDark" />
+                    android:textColor="@color/colorAccentDark"
+                    android:translationY="10dp" />
 
                 <TextView
                     android:id="@+id/user_bio"
@@ -58,12 +62,14 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/user_location"
                     android:layout_centerHorizontal="true"
+                    android:alpha="0"
                     android:ellipsize="end"
                     android:maxLines="3"
                     android:paddingEnd="13dp"
                     android:paddingStart="13dp"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:translationY="10dp" />
 
             </RelativeLayout>
 
